@@ -47,16 +47,19 @@ public class Graph : MonoBehaviour
         for(int i = 0; i < points.Length; i++) {
             Transform point = points[i];
             Vector3 position = point.localPosition;
-            position.y = f(position.x, t);
+            Vector2 xz = new Vector2(position.x, position.y);
+            position.y = f(xz, t);
             point.localPosition = position;
         }
     }
 
-    static float SineFunction(float x, float t) {
+    static float SineFunction(Vector2 xz, float t) {
+        float x = xz.x;
         return Mathf.Sin(Mathf.PI * (x + t));
     }
 
-    static float MultiSineFunction(float x, float t) {
+    static float MultiSineFunction(Vector2 xz, float t) {
+        float x = xz.x;
         float y = Mathf.Sin(Mathf.PI * (x + t));
         // add another sine wave with half the freq
         // and amplitude
