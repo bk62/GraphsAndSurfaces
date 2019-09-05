@@ -52,11 +52,11 @@ public class Graph : MonoBehaviour
         }
     }
 
-    static float SineFunction(float x, float t) {
+    static float SineFunction(float x, float t, float z = 0) {
         return Mathf.Sin(Mathf.PI * (x + t));
     }
 
-    static float MultiSineFunction(float x, float t) {
+    static float MultiSineFunction(float x, float t, float z = 0) {
         float y = Mathf.Sin(Mathf.PI * (x + t));
         // add another sine wave with half the freq
         // and amplitude
