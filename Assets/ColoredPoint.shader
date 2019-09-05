@@ -51,7 +51,7 @@
             // Metallic and smoothness come from slider variables.r
             // red transition from x = -1 to 1
             // green transtion for y
-            o.Albedo.rg = IN.worldPos.xy * 0.5 + 0.5;
+            o.Albedo.rgb = IN.worldPos.xyz * 0.5 + 0.5;
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = 1; // c.a;

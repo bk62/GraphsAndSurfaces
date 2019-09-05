@@ -12,6 +12,11 @@ public class Graph : MonoBehaviour
 
     Transform[] points;
 
+    public GraphFunctionName function;
+    static GraphFunction[] functions = {
+        SineFunction, MultiSineFunction
+    };
+
     void Awake() {
         // fit resolution objects within 2f units
         float step = 2f / resolution;
@@ -37,13 +42,29 @@ public class Graph : MonoBehaviour
     }
 
     void Update() {
+        float t = Time.time;
+        GraphFunction f = functions[(int)function];
         for(int i = 0; i < points.Length; i++) {
             Transform point = points[i];
             Vector3 position = point.localPosition;
-            // position.y = position.x; // y = x
-            // position.y = position.x * position.x;// y = x^2
-            position.y = Mathf.Sin(Mathf.PI * (position.x + Time.time));
+            position.y = f(position.x, t);
             point.localPosition = position;
         }
     }
+
+    static float SineFunction(float x, float t) {
+        return Mathf.Sin(Mathf.PI * (x + t));
+    }
+
+    static float MultiSineFunction(float x, float t) {
+        float y = Mathf.Sin(Mathf.PI * (x + t));
+        // add another sine wave with half the freq
+        // and amplitude
+        y += Mathf.Sin(2f * Mathf.PI * (x + t)) / 2f;
+        // amplitude of resulting function is 3/2
+        // normalize
+        y *= 2f / 3f;
+        return y;
+    }
 }
+
