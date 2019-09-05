@@ -1,4 +1,7 @@
 public enum GraphFunctionName {
     Sine,
-    MultiSine
+    MultiSine,
+    DiagonalSine2D,
+    Sine2D,
+    MultiSine2D
 }

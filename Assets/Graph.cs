@@ -19,7 +19,10 @@ public class Graph : MonoBehaviour {
     public GraphFunctionName function;
     static GraphFunction[] functions = {
         SineFunction,
-        MultiSineFunction
+        MultiSineFunction,
+        DiagonalSine2DFunction,
+        Sine2DFunction,
+        MultiSine2DFunction
     };
 
     void Awake () {
@@ -59,7 +62,7 @@ public class Graph : MonoBehaviour {
         for (int i = 0; i < points.Length; i++) {
             Transform point = points[i];
             Vector3 position = point.localPosition;
-            Vector2 xz = new Vector2 (position.x, position.y);
+            Vector2 xz = new Vector2 (position.x, position.z);
             position.y = f (xz, t);
             point.localPosition = position;
         }
@@ -79,6 +82,37 @@ public class Graph : MonoBehaviour {
         // amplitude of resulting function is 3/2
         // normalize
         y *= 2f / 3f;
+        return y;
+    }
+
+    static float DiagonalSine2DFunction(Vector2 xz, float t) {
+        // diagonal sine wave
+        float x = xz.x;
+        float z = xz.y;
+        return Mathf.Sin(pi * (x + z + t));
+    }
+
+    static float Sine2DFunction(Vector2 xz, float t) {
+        // sum of wave along each dimension
+        float x = xz.x;
+        float z = xz.y;
+        float y = Mathf.Sin(pi * (x + t));
+        y += Mathf.Sin(pi * (z + t));
+        y *= 0.5f;
+        return y;
+    }
+
+    static float MultiSine2DFunction(Vector2 xz, float t) {
+        // single main wave with two secondary waves -- one per dimension
+        // main wave is a slow moving diagonal wave
+        // secondary waves move along the axes
+        // main wave has half and z wave has double x waves freq
+        float x = xz.x;
+        float z = xz.y;
+        float y = 4f * Mathf.Sin(pi * (x + z + t * 0.5f));
+        y += Mathf.Sin(pi * (x + t));
+        y += Mathf.Sin(2f * pi * (z + 2f * t)) * 0.5f;
+        y *= 1f / 5.5f;
         return y;
     }
 }
