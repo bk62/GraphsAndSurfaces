@@ -22,7 +22,8 @@ public class Graph : MonoBehaviour {
         MultiSineFunction,
         DiagonalSine2DFunction,
         Sine2DFunction,
-        MultiSine2DFunction
+        MultiSine2DFunction,
+        RippleFunction
     };
 
     void Awake () {
@@ -113,6 +114,17 @@ public class Graph : MonoBehaviour {
         y += Mathf.Sin(pi * (x + t));
         y += Mathf.Sin(2f * pi * (z + 2f * t)) * 0.5f;
         y *= 1f / 5.5f;
+        return y;
+    }
+
+    static float RippleFunction (Vector2 xz, float t) {
+        float x = xz.x;
+        float z = xz.y;
+        float d = Mathf.Sqrt(x*x + z*z);
+        // outward mogin high freq sine wave with distance from origin as input
+        float y = Mathf.Sin(pi*(4f * d - t));
+        // amplitude inverse reln to distance (adding 1 to avoid div by 0)
+        y /= 1f + 10f * d;
         return y;
     }
 }

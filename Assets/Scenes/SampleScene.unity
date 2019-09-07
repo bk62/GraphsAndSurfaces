@@ -149,9 +149,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a773bfe126842659a35bfc2e1949540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolution: 15
+  resolutionX: 40
+  resolutionZ: 40
   pointPrefab: {fileID: 2025316777928424748, guid: 9d4f57b38e4b386d6a41423d0710ca68,
     type: 3}
+  function: 0
 --- !u!4 &508324393
 Transform:
   m_ObjectHideFlags: 0

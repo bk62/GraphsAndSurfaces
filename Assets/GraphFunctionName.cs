@@ -3,5 +3,6 @@ public enum GraphFunctionName {
     MultiSine,
     DiagonalSine2D,
     Sine2D,
-    MultiSine2D
+    MultiSine2D,
+    Ripple
 }
