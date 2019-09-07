@@ -1,3 +1,3 @@
 using UnityEngine;
 
-public delegate float GraphFunction (Vector2 uv, float t);
+public delegate Vector3 GraphFunction (Vector2 uv, float t);
