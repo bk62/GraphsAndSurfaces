@@ -23,7 +23,14 @@ public class Graph : MonoBehaviour {
         DiagonalSine2DFunction,
         Sine2DFunction,
         MultiSine2DFunction,
-        RippleFunction
+        RippleFunction,
+        Cylinder,
+        TwistingCylinder,
+        Sphere,
+        PulsingSphere,
+        HornTorus,
+        RingTorus,
+        TwistingTorus
     };
 
     void Awake () {
@@ -139,4 +146,99 @@ public class Graph : MonoBehaviour {
         Vector3 p = new Vector3 (x, y, z);
         return p;
     }
+
+    static Vector3 Cylinder(Vector2 uv, float t) {
+        // static cylinder
+        float u = uv.x;
+        float v = uv.y;
+        Vector3 p;
+        float R = 1;
+        p.x = R * Mathf.Sin(pi * u);
+        p.y = v;
+        p.z = R * Mathf.Cos(pi * u);
+        return p;
+    }
+
+    static Vector3 TwistingCylinder(Vector2 uv, float t) {
+        // twisting cylinder
+        float u = uv.x;
+        float v = uv.y;
+        Vector3 p;
+        // time dependent raidus that varies along the circle and height, 
+        float R = 0.8f + Mathf.Sin(pi * (6f * u + 2f * v + t)) * 0.2f;
+        p.x = R * Mathf.Sin(pi * u);
+        p.y = v;
+        p.z = R * Mathf.Cos(pi * u);
+        return p;
+    }
+
+    static Vector3 Sphere(Vector2 uv, float t){
+        // UV sphere
+        float u = uv.x;
+        float v = uv.y;
+        Vector3 p;
+        float r = Mathf.Cos(pi * 0.5f * v);
+        p.x = r * Mathf.Sin(pi * u);
+        p.y = Mathf.Sin(pi * 0.5f * v);
+        p.z = r * Mathf.Cos(pi * u);
+        return p;
+    }
+
+    static Vector3 PulsingSphere(Vector2 uv, float t){
+    
+        float u = uv.x;
+        float v = uv.y;
+        Vector3 p;
+        float r = 0.8f + Mathf.Sin(pi * (6f * u + t)) * 0.1f;
+        r += Mathf.Sin(pi * (4f * v + t)) * 0.1f;
+        float s = r * Mathf.Cos(pi * 0.5f * v);
+        p.x = s * Mathf.Sin(pi * u);
+        p.y = Mathf.Sin(pi * 0.5f * v);
+        p.z = s * Mathf.Cos(pi * u);
+        return p;
+    }
+
+    static Vector3 HornTorus(Vector2 uv, float t)
+    {
+        // horn torus
+        float u = uv.x;
+        float v = uv.y;
+        Vector3 p;
+        float r1 = 1f;
+        float s = Mathf.Cos(pi * 0.5f * v) + r1;
+        p.x = s * Mathf.Sin(pi * u);
+        p.y = Mathf.Sin(pi *  v);
+        p.z = s * Mathf.Cos(pi * u);
+        return p;
+    }
+
+    static Vector3 RingTorus(Vector2 uv, float t)
+    {
+        // horn torus
+        float u = uv.x;
+        float v = uv.y;
+        Vector3 p;
+        float r1 = 1f;
+        float r2 = 0.5f;
+        float s = r2* Mathf.Cos(pi * 0.5f * v) + r1;
+        p.x = s * Mathf.Sin(pi * u);
+        p.y = r2 * Mathf.Sin(pi *  v);
+        p.z = s * Mathf.Cos(pi * u);
+        return p;
+    }
+
+    static Vector3 TwistingTorus(Vector2 uv, float t)
+    {
+        float u = uv.x;
+        float v = uv.y;
+        Vector3 p;
+        float r1 = 0.65f + Mathf.Sin(pi * (6f * u + t)) * 0.1f;
+        float r2 = 0.2f + Mathf.Sin(pi * (4f * v + t)) * 0.05f;
+        float s = r2* Mathf.Cos(pi * 0.5f * v) + r1;
+        p.x = s * Mathf.Sin(pi * u);
+        p.y = r2 * Mathf.Sin(pi *  v);
+        p.z = s * Mathf.Cos(pi * u);
+        return p;
+    }
+
 }

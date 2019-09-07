@@ -4,5 +4,12 @@ public enum GraphFunctionName {
     DiagonalSine2D,
     Sine2D,
     MultiSine2D,
-    Ripple
+    Ripple,
+    Cylinder,
+    TwistingCylinder,
+    Sphere,
+    PulsingSphere,
+    HornTorus,
+    RingTorus,
+    TwistingTorus
 }
